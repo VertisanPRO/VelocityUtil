@@ -6,7 +6,7 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class Message {
 
-    public static String prefix = "&3[VelocityUtil] &7";
+    public static String prefix = "&f[&3VelocityUtil&f] &7";
 
     public static Component convert(String message) {
         return Component.text()
