@@ -1,0 +1,9 @@
+# Ceneral Configuration File
+
+language: "en"
+
+modules:
+  # Rcon manager. Allows sending RCON commands to other servers
+  rcon-manager: true
+  # Rcon server. Enables Velocity RCON server to run
+  rcon-server: true

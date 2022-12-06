@@ -1,0 +1,8 @@
+# Rcon server settings
+
+# Rcon port
+port: 25570
+# Rcon password
+password: "password"
+# The response is colored or not
+colored: true

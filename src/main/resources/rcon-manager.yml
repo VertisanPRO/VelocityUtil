@@ -1,0 +1,14 @@
+# Rcon servers
+# To allow the use of a separate server for a player, use permission:
+# velocityutil.rcon.serve_name
+# Examples: velocityutil.rcon.lobby, velocityutil.rcon.vanilla
+servers:
+  lobby:
+    ip: "0.0.0.0"
+    port: 25566
+    pass: "rcon password"
+
+  vanilla:
+    ip: "0.0.0.0"
+    port: 25566
+    pass: "rcon password"

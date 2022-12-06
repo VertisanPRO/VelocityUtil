@@ -1,0 +1,12 @@
+no_perms: "&4&lYou do not have permission to use this command"
+unknown_error: "&4Unknown error"
+unknown_request: "&4Unknown request"
+error_executing: "&4Error executing:"
+no_command: "&4No such command"
+reload: "&a&lConfigurations reloaded"
+
+rcon_manager_reload: "&a&lConfigurations Rcon Manager reloaded"
+rcon_server_reload: "&a&lConfigurations Rcon Server reloaded"
+rcon_usage: "&4&lError! &6&lUsage: rcon [server/all/reload] [command]"
+rcon_response: "&6&l{server}: &a{response}"
+rcon_response_empty: "There is no response from the server"
