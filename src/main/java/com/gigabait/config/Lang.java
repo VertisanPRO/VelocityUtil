@@ -7,6 +7,7 @@ import java.io.File;
 
 public class Lang extends YamlConfiguration {
 
+    public static String prefix;
     private static Lang config;
 
     private static String getLangFile(){
@@ -22,6 +23,7 @@ public class Lang extends YamlConfiguration {
 
     public static void initialise(File folder) {
         Lang.config = new Lang(folder);
+        Lang.prefix = getOriginText("prefix");
     }
 
     public static void reload() {
@@ -33,14 +35,14 @@ public class Lang extends YamlConfiguration {
     }
 
     public static Component getKey(String key) {
-        return Message.convert(get().getString(key));
+        return Message.convert(prefix + get().getString(key));
     }
 
-    public static Component getKey(String key, boolean text) {
-        if (text){
-            return Message.convert(key);
+    public static Component getKey(String text, boolean isText) {
+        if (isText){
+            return Message.convert(prefix + text);
         }
-        return Message.convert(get().getString(key));
+        return Message.convert(prefix + get().getString(text));
     }
 
     public static Component getKey(String key, String[] replaceList){
@@ -48,19 +50,19 @@ public class Lang extends YamlConfiguration {
         int length = replaceList.length;
         int i = 0;
         if (!dividesByTwo(length)){
-            return Message.convert(resp);
+            return Message.convert(prefix + resp);
         }
         for (String arg : replaceList) {
             if (dividesByTwo(i)){
                 int to = i + 1;
                 resp = resp.replace(arg, replaceList[to]);
                 if (to >= (length - 1)){
-                    return Message.convert(resp);
+                    return Message.convert(prefix + resp);
                 }
             }
             i++;
         }
-        return Message.convert(resp);
+        return Message.convert(prefix + resp);
     }
 
     public static String getOriginText(String key) {
