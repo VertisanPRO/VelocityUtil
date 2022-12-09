@@ -13,18 +13,16 @@ public final class ReloadCommand implements SimpleCommand {
     public void execute(final Invocation invocation) {
         CommandSource source = invocation.source();
         if (!hasPermission(invocation)){
-            source.sendMessage(Lang.getKey("no_perms"));
+            source.sendMessage(Lang.no_perms.get());
+            return;
         }
-        RconManagerCommand.unregister();
         VelocityUtil.loadPlugin();
-        source.sendMessage(Lang.getKey("reload"));
+        source.sendMessage(Lang.reload.get());
     }
-
     @Override
     public boolean hasPermission(final Invocation invocation) {
         return invocation.source().hasPermission("velocityutil.reload");
     }
-
     @Override
     public CompletableFuture<List<String>> suggestAsync(final Invocation invocation) {
         return CompletableFuture.completedFuture(List.of());

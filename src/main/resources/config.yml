@@ -7,3 +7,7 @@ modules:
   rcon-manager: true
   # Rcon server. Enables Velocity RCON server to run
   rcon-server: true
+  # PHP Runner. Allows you to download the PHP script
+  php-runner: true
+  # BASH Runner. Allows you to download the BASH script
+  bash-runner: true

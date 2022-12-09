@@ -16,13 +16,10 @@ public class IRconCommandSource implements RconCommandSource {
 
     private final StringBuffer buffer = new StringBuffer();
     private PermissionFunction permissionFunction = ALWAYS_TRUE;
-
     private ProxyServer server;
-
     public IRconCommandSource(ProxyServer server) {
         this.server = server;
     }
-
     private void addToBuffer(Component message) {
         String txt = LegacyComponentSerializer.legacySection().serialize(message);
         txt = RconServerConfig.stripMcColor(txt);
@@ -30,22 +27,18 @@ public class IRconCommandSource implements RconCommandSource {
             buffer.append("\n");
         buffer.append(txt);
     }
-
     @Override
     public void sendMessage(@NotNull Identity source, @NotNull Component message) {
         addToBuffer(message);
     }
-
     @Override
     public void sendMessage(@NonNull Component message) {
         addToBuffer(message);
     }
-
     @Override
     public @NonNull Tristate getPermissionValue(@NonNull String permission) {
         return this.permissionFunction.getPermissionValue(permission);
     }
-
     public String flush() {
         String result = buffer.toString();
         buffer.setLength(0);

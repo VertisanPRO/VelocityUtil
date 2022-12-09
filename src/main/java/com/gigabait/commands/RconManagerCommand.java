@@ -2,6 +2,7 @@ package com.gigabait.commands;
 
 import com.gigabait.config.Lang;
 import com.gigabait.config.RconManagerConfig;
+import com.gigabait.config.Util;
 import com.gigabait.rconlib.AuthenticationException;
 import com.gigabait.rconlib.Rcon;
 import com.gigabait.velocityutil.VelocityUtil;
@@ -18,26 +19,26 @@ public class RconManagerCommand implements SimpleCommand {
 
     @Override
     public void execute(final SimpleCommand.Invocation invocation) {
-        CommandSource source = invocation.source();
+        CommandSource sender = invocation.source();
         String[] args = invocation.arguments();
 
         if (!hasPermission(invocation)){
-            source.sendMessage(Lang.getKey("no_perms"));
+            sender.sendMessage(Lang.no_perms.get());
             return;
         }
 
         if (args.length == 1 && args[0].equals("reload")) {
             if (hasPermission(invocation, "reload")){
                 RconManagerConfig.reload();
-                source.sendMessage(Lang.getKey("rcon_manager_reload"));
+                sender.sendMessage(Lang.rcon_manager_reload.get());
             } else {
-                source.sendMessage(Lang.getKey("no_perms"));
+                sender.sendMessage(Lang.no_perms.get());
             }
             return;
         }
 
         if (args.length <= 1) {
-            source.sendMessage(Lang.getKey("rcon_usage"));
+            sender.sendMessage(Lang.rcon_usage.get());
             return;
         }
 
@@ -58,14 +59,14 @@ public class RconManagerCommand implements SimpleCommand {
                         Rcon rcon = new Rcon(RconManagerConfig.getIP(server_name), RconManagerConfig.getPort(server_name), RconManagerConfig.getPass(server_name).getBytes());
                         String result = rcon.command(command.trim());
                         if (result.length() == 0){
-                            result = Lang.getOriginText("rcon_response_empty");
+                            result = Lang.rcon_response_empty.getOrigin();
                         }
-                        source.sendMessage(Lang.getKey("rcon_response", new String[]{"{server}", capitalize(server_name), "{response}", result}));
+                        sender.sendMessage(Lang.rcon_response.replace("{server}", Util.capitalize(server_name), "{response}", result));
                     } catch (IOException | AuthenticationException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    source.sendMessage(Lang.getKey("no_perms"));
+                    sender.sendMessage(Lang.no_perms.get());
                 }
 
             }
@@ -75,28 +76,25 @@ public class RconManagerCommand implements SimpleCommand {
                     Rcon rcon = new Rcon(RconManagerConfig.getIP(server), RconManagerConfig.getPort(server), RconManagerConfig.getPass(server).getBytes());
                     String result = rcon.command(command.trim());
                     if (result.length() == 0){
-                        result = Lang.getOriginText("rcon_response_empty");
+                        result = Lang.rcon_response_empty.getOrigin();
                     }
-                    source.sendMessage(Lang.getKey("rcon_response", new String[]{"{server}", capitalize(server), "{response}", result}));
+                    sender.sendMessage(Lang.rcon_response.replace("{server}", Util.capitalize(server), "{response}", result));
                 } catch (IOException | AuthenticationException e) {
                     throw new RuntimeException(e);
                 }
             } else {
-                source.sendMessage(Lang.getKey("no_perms"));
+                sender.sendMessage(Lang.no_perms.get());
             }
 
         }
     }
-
     @Override
     public boolean hasPermission(final SimpleCommand.Invocation invocation) {
         return invocation.source().hasPermission("velocityutil.rcon");
     }
-
     public boolean hasPermission(final SimpleCommand.Invocation invocation, String server) {
         return invocation.source().hasPermission("velocityutil.rcon." + server);
     }
-
     @Override
     public CompletableFuture<List<String>> suggestAsync(final SimpleCommand.Invocation invocation) {
         ArrayList<String> args = new ArrayList<>();
@@ -107,24 +105,22 @@ public class RconManagerCommand implements SimpleCommand {
             args.add("reload");
         }
         if (argNum == 2){
-            args.add("tps");
-            args.add("list");
+            args.addAll(RconManagerConfig.getCommandArgs());
         }
         if (argNum > 2) {
-            for (Player player : VelocityUtil.getServer().getAllPlayers()){
+            for (Player player : VelocityUtil.server.getAllPlayers()){
                 args.add(player.getUsername().trim());
             }
         }
         return CompletableFuture.completedFuture(args);
 
     }
-
     public static void unregister(){
-        CommandManager manager = VelocityUtil.getServer().getCommandManager();
-        manager.unregister("rcon");
+        CommandManager manager = VelocityUtil.server.getCommandManager();
+        String[] commands = {"vurcon", "rcon", "velocityrcon"};
+        for (String command : commands) {
+            manager.unregister(command);
+        }
     }
 
-    public static String capitalize(String text){
-        return text.toUpperCase().charAt(0)+text.substring(1);
-    }
 }

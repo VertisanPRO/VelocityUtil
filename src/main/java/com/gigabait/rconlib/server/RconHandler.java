@@ -7,6 +7,7 @@ import com.gigabait.velocityutil.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
@@ -51,7 +52,7 @@ public class RconHandler extends SimpleChannelInboundHandler<ByteBuf> {
         } else if (type == TYPE_COMMAND) {
             handleCommand(ctx, payload, requestId);
         } else {
-            sendLargeResponse(ctx, requestId, Lang.getOriginText("unknown_request") + " " + Integer.toHexString(type));
+            sendLargeResponse(ctx, requestId, Lang.unknown_request.getOrigin() + " " + Integer.toHexString(type));
         }
     }
 
@@ -87,17 +88,17 @@ public class RconHandler extends SimpleChannelInboundHandler<ByteBuf> {
                 if (success) {
                     message = commandSender.flush();
                 } else {
-                    message = Lang.getOriginText("no_command");
+                    message = Lang.no_command.getOrigin();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 success = false;
-                message = Lang.getOriginText("unknown_error");
+                message = Lang.unknown_error.getOrigin();
             }
         }
 
         if (!success) {
-            message = String.format(Lang.getOriginText("error_executing") + " %s (%s)", payload, message);
+            message = String.format(Lang.error_executing.getOrigin() + " %s (%s)", payload, message);
         }
 
         if (!RconServerConfig.isColored()) {

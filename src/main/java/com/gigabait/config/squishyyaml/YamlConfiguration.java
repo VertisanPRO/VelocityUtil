@@ -22,14 +22,12 @@ public class YamlConfiguration extends YamlConfigurationSection implements Confi
     public YamlConfiguration(File file) {
         super(new HashMap<>());
         this.file = file;
-
         this.folder = file.getParentFile();
         this.path = file.getName();
     }
 
     public YamlConfiguration(File folder, String path) {
         super(new HashMap<>());
-
         this.folder = folder;
         this.path = path;
     }
