@@ -2,13 +2,12 @@
 
 ## The plugin adds RCON for the Velocity proxy server and allows you to send commands to other servers using RCON.
 
-| Command | Description |
+| Command | Description | Permission |
 | --- | --- |
-| vureload | reload all configuration |
-| rcon reload | reload rcon manager configuration |
-| rcon [all/server] [command] | send rcon command to server/servers |
-| php [script/reload] [args] | run php script (requires php installed on hosting) |
-| bash [script/reload] [args] | run bash script |
+| vureload | reload all configuration | velocityutil.reload |
+| rcon [reload/all/server] [command] | send rcon command to server/servers | velocityutil.rcon.[all]/[reload]/[server_name] |
+| php [script/reload] [args] | run php script (requires php installed on hosting) | velocityutil.php.[*]/[reload]/[script_name] |
+| bash [script/reload] [args] | run bash script | velocityutil.bash.[*]/[reload]/[script_name] |
 
 ## config.yml
 ```yml
