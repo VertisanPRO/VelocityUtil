@@ -8,7 +8,7 @@
 | rcon reload | reload rcon manager configuration |
 | rcon [all/server] [command] | send rcon command to server/servers |
 | php [script/reload] [args] | run php script (requires php installed on hosting) |
-| bash [script/reload] [args] | bash php script |
+| bash [script/reload] [args] | run bash script |
 
 ## config.yml
 ```yml
