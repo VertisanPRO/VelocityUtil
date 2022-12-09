@@ -1,6 +1,6 @@
 # VelocityUtil
 
-## The plugin adds RCON for the Velocity proxy server and allows you to send commands to other servers using RCON.
+## The plugin adds RCON for the Velocity proxy and allows you to send commands to other servers using RCON, allowing you to synchronize commands between servers. Also, the plugin allows you to run php/bash scripts, in order to run php scripts on the hosting, PHP must be installed. You can turn off or turn on all the plug-in modules, so you can turn off functions you don't use and the plug-in won't load them when the server starts.
 
 | Command | Description | Permission |
 | --- | --- | --- |
