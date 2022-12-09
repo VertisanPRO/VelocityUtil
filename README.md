@@ -7,6 +7,8 @@
 | vureload | reload all configuration |
 | rcon reload | reload rcon manager configuration |
 | rcon [all/server] [command] | send rcon command to server/servers |
+| php [script/reload] [args] | run php script (requires php installed on hosting) |
+| bash [script/reload] [args] | bash php script |
 
 ## config.yml
 ```yml
@@ -19,6 +21,10 @@ modules:
   rcon-manager: true
   # Rcon server. Enables Velocity RCON server to run
   rcon-server: true
+  # PHP Runner. Allows you to download the PHP script
+  php-runner: true
+  # BASH Runner. Allows you to download the BASH script
+  bash-runner: true
 ```
 
 ## rcon-manager.yml
