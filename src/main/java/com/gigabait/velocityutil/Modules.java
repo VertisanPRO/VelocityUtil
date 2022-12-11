@@ -3,6 +3,7 @@ package com.gigabait.velocityutil;
 import com.gigabait.commands.BASHCommand;
 import com.gigabait.commands.PHPCommand;
 import com.gigabait.commands.RconManagerCommand;
+import com.gigabait.commands.ReloadCommand;
 import com.gigabait.config.*;
 import com.gigabait.rconlib.server.RconServer;
 import com.velocitypowered.api.command.CommandManager;
@@ -11,7 +12,6 @@ import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.ProxyServer;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-
 import java.io.File;
 import java.net.InetSocketAddress;
 import java.nio.file.Path;
@@ -21,6 +21,9 @@ public class Modules {
     private static final ProxyServer server = VelocityUtil.server;
     private final Path rootPath = VelocityUtil.rootPath;
     public Modules(){
+        registerCommand("vutilreload", "vureload", new ReloadCommand());
+        Message.info("...");
+        Message.info("VelocityUtil loading modules...");
         GeneralConfig.getModules().forEach(this::runModules);
     }
 
