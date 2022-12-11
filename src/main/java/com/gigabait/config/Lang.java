@@ -10,7 +10,7 @@ public enum Lang {
     error_executing("error_executing"), no_command("no_command"), reload("reload"), rcon_manager_reload("rcon_manager_reload"),
     rcon_usage("rcon_usage"), rcon_response("rcon_response"), rcon_response_empty("rcon_response_empty"), bash_usage("bash_usage"),
     php_usage("php_usage"), bash_out_script("bash_out_script"), bash_runner_reload("bash_runner_reload"),
-    php_runner_reload("php_runner_reload"), php_out_script("php_out_script");
+    php_runner_reload("php_runner_reload"), php_out_script("php_out_script"), rcon_connect_notify("rcon_connect_notify");
 
     private final String key;
     Lang(String key){

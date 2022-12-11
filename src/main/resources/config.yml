@@ -11,3 +11,5 @@ modules:
   php-runner: true
   # BASH Runner. Allows you to download the BASH script
   bash-runner: true
+  # Events manager. Allows you to use an event handler
+  events-manager: true

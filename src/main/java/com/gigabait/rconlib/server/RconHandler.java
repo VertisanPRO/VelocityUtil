@@ -1,13 +1,13 @@
 package com.gigabait.rconlib.server;
 
-import com.gigabait.commands.IRconCommandSource;
+import com.gigabait.commands.RconCommandSource;
 import com.gigabait.config.Lang;
 import com.gigabait.config.RconServerConfig;
 import com.gigabait.velocityutil.Message;
+import com.gigabait.velocityutil.VelocityUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 
@@ -24,12 +24,12 @@ public class RconHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
     private final RconServer rconServer;
 
-    private final IRconCommandSource commandSender;
+    private final RconCommandSource commandSender;
 
     public RconHandler(RconServer rconServer, String password) {
         this.rconServer = rconServer;
         this.password = password;
-        this.commandSender = new IRconCommandSource(rconServer.getServer());
+        this.commandSender = new RconCommandSource(rconServer.getServer());
     }
 
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf buf) {
@@ -59,10 +59,7 @@ public class RconHandler extends SimpleChannelInboundHandler<ByteBuf> {
     private void handleLogin(ChannelHandlerContext ctx, String payload, int requestId) {
         if (password.equals(payload)) {
             loggedIn = true;
-
             sendResponse(ctx, requestId, TYPE_COMMAND, "");
-
-            Message.info("Rcon connection from: [{}]".replace("{}", ctx.channel().remoteAddress().toString()));
         } else {
             loggedIn = false;
             sendResponse(ctx, FAILURE, TYPE_COMMAND, "");
@@ -77,6 +74,14 @@ public class RconHandler extends SimpleChannelInboundHandler<ByteBuf> {
         boolean stop = false;
         boolean success;
         String message;
+        String ip = ctx.channel().remoteAddress().toString().replace("/", "");
+        Message.info(Lang.rcon_connect_notify.getOrigin().replace("{address}", ip).replace("{command}", payload));
+
+        VelocityUtil.server.getAllPlayers().forEach(p -> {
+            if (p.getPermissionValue("velocityutil.rcon.notify").asBoolean()) {
+                p.sendMessage(Lang.rcon_connect_notify.replace("{address}", ip, "{command}", payload));
+            }
+        });
 
         if (payload.equalsIgnoreCase("end") || payload.equalsIgnoreCase("stop")) {
             stop = true;
@@ -108,7 +113,7 @@ public class RconHandler extends SimpleChannelInboundHandler<ByteBuf> {
         sendLargeResponse(ctx, requestId, message);
 
         if (stop) {
-            rconServer.shutdown();
+            VelocityUtil.server.shutdown();
         }
     }
 

@@ -108,11 +108,8 @@ public class PHPCommand implements SimpleCommand {
         return CompletableFuture.completedFuture(args);
     }
 
-    public boolean hasPermission(final CommandSource sernder, String script) {
-        if (sernder.hasPermission("velocityutil.php.*")) {
-            return true;
-        }
-        return sernder.hasPermission("velocityutil.php." + script);
+    public boolean hasPermission(final CommandSource sender, String permission) {
+        return sender.hasPermission("velocityutil.php." + permission) || sender.hasPermission("velocityutil.php.*");
     }
 
     public static void unregister() {

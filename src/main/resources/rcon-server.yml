@@ -1,4 +1,5 @@
 # Rcon server settings
+# To receive RCON server connection notifications: velocityutil.rcon.notify
 
 # Rcon port
 port: 25570

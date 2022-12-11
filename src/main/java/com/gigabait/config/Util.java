@@ -1,6 +1,8 @@
 package com.gigabait.config;
 
 import com.gigabait.velocityutil.VelocityUtil;
+import com.velocitypowered.api.proxy.Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,8 +13,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 public class Util {
+
+    public static void executeCommand(final String command) {
+        VelocityUtil.server.getCommandManager().executeAsync(VelocityUtil.server.getConsoleCommandSource(), command);
+    }
+
+    public static void executeCommand(Player player, final String command) {
+        VelocityUtil.server.getCommandManager().executeAsync(player, command);
+    }
+
     public static void copyFile(String toPath, String fileName) {
         File file = new File(toPath + File.separator + fileName);
 
@@ -30,6 +40,13 @@ public class Util {
 
         } catch (IOException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    public static void createDir(String path){
+        File dir = Path.of(path).toFile();
+        if (!dir.exists()) {
+            dir.mkdirs();
         }
     }
 

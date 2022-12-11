@@ -9,6 +9,7 @@ reload: "&aAll configurations reloaded"
 
 rcon_manager_reload: "&aConfigurations Rcon Manager reloaded"
 rcon_server_reload: "&aConfigurations Rcon Server reloaded"
+rcon_connect_notify: "&aRcon connection from: &7[&3&l{address}&7] &aCommand: &3&l{command}"
 rcon_usage: "&6Usage: rcon [server/all/reload] [command]"
 rcon_response: "&6{server}: &a{response}"
 rcon_response_empty: "There is no response from the server"

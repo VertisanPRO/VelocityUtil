@@ -107,11 +107,8 @@ public class BASHCommand implements SimpleCommand {
         }
         return CompletableFuture.completedFuture(args);
     }
-    public boolean hasPermission(final CommandSource sernder, String script) {
-        if (sernder.hasPermission("velocityutil.bash.*")){
-            return true;
-        }
-        return sernder.hasPermission("velocityutil.bash." + script);
+    public boolean hasPermission(final CommandSource sender, String permission) {
+        return sender.hasPermission("velocityutil.bash." + permission) || sender.hasPermission("velocityutil.bash.*");
     }
     public static void unregister(){
         CommandManager manager = VelocityUtil.server.getCommandManager();

@@ -1,0 +1,23 @@
+# Events settings
+# Placeholders: {player}, {server}, {fromServer}
+# [console] - run console command
+# [delay] (seconds) - delay seconds command
+events:
+  on_join_commands:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} join the game"
+      - "[delay] 10"
+      - "server lobby"
+  on_leave_commands:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} left the game"
+  on_server_switch:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} connected to server {server} from server {fromServer}"
+  on_server_kick:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} kick the server {server}"
