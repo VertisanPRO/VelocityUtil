@@ -1,6 +1,9 @@
 package com.gigabait.config;
 
 import com.gigabait.velocityutil.VelocityUtil;
+import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.command.CommandMeta;
+import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 
 import java.io.File;
@@ -13,16 +16,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.gigabait.velocityutil.VelocityUtil.server;
+
 public class Util {
 
     public static void executeCommand(final String command) {
-        VelocityUtil.server.getCommandManager().executeAsync(VelocityUtil.server.getConsoleCommandSource(), command);
+        server.getCommandManager().executeAsync(server.getConsoleCommandSource(), command);
     }
-
     public static void executeCommand(Player player, final String command) {
-        VelocityUtil.server.getCommandManager().executeAsync(player, command);
+        server.getCommandManager().executeAsync(player, command);
     }
+    public static void registerCommand(String command, String alias, SimpleCommand CommandClass) {
+        CommandManager commandManager = server.getCommandManager();
+        CommandMeta commandMeta = commandManager.metaBuilder(command)
+                .aliases(alias)
+                .plugin(server)
+                .build();
+        commandManager.register(commandMeta, CommandClass);
 
+    }
     public static void copyFile(String toPath, String fileName) {
         File file = new File(toPath + File.separator + fileName);
 
@@ -42,14 +55,12 @@ public class Util {
             exception.printStackTrace();
         }
     }
-
     public static void createDir(String path){
         File dir = Path.of(path).toFile();
         if (!dir.exists()) {
             dir.mkdirs();
         }
     }
-
     public static Map<String, ScriptsData> getScriptsData(Path dirPath, String isDirFileName) {
 
         ArrayList<ScriptsData> data = new ArrayList<>();
@@ -82,9 +93,6 @@ public class Util {
         data.forEach(res -> scriptsData.put(res.cmd_name, res));
         return scriptsData;
     }
-    /**
-     * @param exception boolean
-     */
     public static ArrayList<String> getScripts(Path dirPath, boolean exception) {
         String[] scripts = dirPath.toFile().list();
         assert scripts != null;
@@ -102,10 +110,6 @@ public class Util {
         }
         return new ArrayList<>(Arrays.asList(scripts));
     }
-    /**
-     * @default false
-     * @return getScripts(false)
-     */
     public static ArrayList<String> getScripts(Path dirPath){
         return getScripts(dirPath, false);
     }
@@ -124,10 +128,14 @@ public class Util {
         return extension;
 
     }
-
     public static String capitalize(String text){
         return text.toUpperCase().charAt(0)+text.substring(1);
     }
+
+
+
+
+
     public static  class ScriptsData {
         public String cmd_name;
         public String path;

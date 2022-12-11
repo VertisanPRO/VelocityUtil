@@ -14,6 +14,7 @@ public class GeneralConfig extends YamlConfiguration {
     public static void initialise(File folder) {
         GeneralConfig.config = new GeneralConfig(folder);
     }
+
     public static void reload() {
         GeneralConfig.config.load();
     }

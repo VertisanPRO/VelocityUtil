@@ -1,7 +1,8 @@
 package com.gigabait.velocityutil;
 
 import com.gigabait.config.GeneralConfig;
-import com.gigabait.config.Lang;
+import com.gigabait.config.Lang.LangConfig;
+import com.gigabait.config.RconServerConfig;
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
@@ -18,7 +19,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "velocityutil",
         name = "VelocityUtil",
-        version = "1.0.1",
+        version = "1.0.2",
         description = "Velocity Util",
         url = "vertisanpro.com",
         authors = {"GIGABAIT"}
@@ -37,7 +38,7 @@ public class VelocityUtil {
 
     public static void loadPlugin() {
         GeneralConfig.initialise(rootPath.toFile());
-        Lang.LangConfig.initialise(rootPath.toFile());
+        LangConfig.initialise(rootPath.toFile());
         Modules.load();
     }
 
@@ -62,10 +63,6 @@ public class VelocityUtil {
     public void onServerSwitch(ServerConnectedEvent event) {
         EventManager.onServerSwitch(event);
     }
-
-
-
-
     @Subscribe
     public void onEnable(ProxyInitializeEvent event) {
         loadPlugin();
@@ -73,7 +70,7 @@ public class VelocityUtil {
     }
     @Subscribe
     public void onShutdown(ProxyShutdownEvent event) {
-        Modules.stopRconListener();
+        RconServerConfig.disable();
     }
 
 }

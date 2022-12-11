@@ -2,6 +2,9 @@ package com.gigabait.config;
 
 import com.gigabait.config.squishyyaml.ConfigurationSection;
 import com.gigabait.config.squishyyaml.YamlConfiguration;
+import com.gigabait.velocityutil.Message;
+import com.gigabait.velocityutil.VelocityUtil;
+
 import java.io.File;
 import java.util.List;
 
@@ -26,6 +29,16 @@ public class EventsConfig extends YamlConfiguration {
 
     public static ConfigurationSection getEvents() {
         return EventsConfig.get().getSection("events");
+    }
+
+    public static void enable(){
+        EventsConfig.initialise(VelocityUtil.rootPath.toFile());
+        reload();
+        Message.info("Events Manager module enabled");
+    }
+    public static void disable(){
+        reload();
+        EventsConfig.config = null;
     }
 
     public enum Events {

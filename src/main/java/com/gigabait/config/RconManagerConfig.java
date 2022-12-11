@@ -1,6 +1,9 @@
 package com.gigabait.config;
 
+import com.gigabait.commands.RconManagerCommand;
 import com.gigabait.config.squishyyaml.YamlConfiguration;
+import com.gigabait.velocityutil.Message;
+import com.gigabait.velocityutil.VelocityUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +22,6 @@ public class RconManagerConfig extends YamlConfiguration {
     public static void reload() {
         RconManagerConfig.config.load();
     }
-
     public static RconManagerConfig get() {
         return RconManagerConfig.config;
     }
@@ -31,9 +33,6 @@ public class RconManagerConfig extends YamlConfiguration {
     }
     public static List<String> getServers() {
         return RconManagerConfig.get().getSection("servers").getKeys();
-    }
-    public static Object getServer(String server) {
-        return RconManagerConfig.get().getSection("servers").getSection(server).getData();
     }
     public static Integer getPort(String server){
             return (Integer) RconManagerConfig.get().getSection("servers").getSection(server).getInteger("port");
@@ -50,5 +49,15 @@ public class RconManagerConfig extends YamlConfiguration {
             args.add((String) arg);
         });
         return args;
+    }
+    public static void enable(){
+        initialise(VelocityUtil.rootPath.toFile());
+        reload();
+        Util.registerCommand("rcon", "vurcon", new RconManagerCommand());
+        Message.info("Rcon Manager module enabled");
+    }
+    public static void disable(){
+        RconManagerCommand.unregister();
+        RconManagerConfig.config = null;
     }
 }

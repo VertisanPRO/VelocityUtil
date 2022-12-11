@@ -1,6 +1,9 @@
 package com.gigabait.config;
 
+import com.gigabait.commands.PHPCommand;
+import com.gigabait.velocityutil.Message;
 import com.gigabait.velocityutil.VelocityUtil;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,5 +18,16 @@ public class PHPConfig {
         scriptsData = Util.getScriptsData(dir, "index.php");
         scriptsList = Util.getScripts(dir);
         Util.copyFile(dir.toString(), "index.php");
+        Message.info("PHP Runner module enabled");
+    }
+    public static void enable(){
+        Util.registerCommand("php", "vuphp", new PHPCommand());
+        Util.createDir(VelocityUtil.rootPath.toString() + File.separator + "php");
+        load();
+    }
+    public static void disable(){
+        PHPCommand.unregister();
+        PHPConfig.scriptsList = null;
+        PHPConfig.scriptsData = null;
     }
 }
