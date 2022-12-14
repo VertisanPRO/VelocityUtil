@@ -19,7 +19,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "velocityutil",
         name = "VelocityUtil",
-        version = "1.0.2",
+        version = "1.0.1",
         description = "Velocity Util",
         url = "vertisanpro.com",
         authors = {"GIGABAIT"}
