@@ -4,7 +4,7 @@
 | Command | Description | Permission |
 | --- | --- | --- |
 | vureload | reload all configuration | velocityutil.reload |
-## config.yml
+### config.yml
 ```yml
 # Ceneral Configuration File
 
@@ -35,7 +35,7 @@ modules:
 | Command | Description | Permission |
 | --- | --- | --- |
 | rcon [reload/all/server] [command] | send rcon command to server/servers | velocityutil.rcon.[all]/[reload]/[server_name] |
-## rcon-manager.yml
+### rcon-manager.yml
 ```yml
 # Rcon servers
 # To allow the use of a separate server for a player, use permission:
@@ -55,7 +55,7 @@ servers:
 
 
 ### Rcon server. The module allows you to send commands to other servers using RCON, allowing you to synchronize commands between servers. 
-## rcon-server.yml
+### rcon-server.yml
 ```yml
 # Rcon server settings
 
@@ -69,7 +69,7 @@ colored: true
 
 
 ### Events manager. The event module allows you to run commands at various events
-## events.yml
+### events.yml
 ```yml
 # Events settings
 # Placeholders: {player}, {server}, {fromServer}
