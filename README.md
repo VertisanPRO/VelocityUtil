@@ -27,6 +27,8 @@ modules:
   php-runner: true
   # BASH Runner. Allows you to download the BASH script
   bash-runner: true
+  # Events manager. Allows you to use an event handler
+  events-manager: true
 ```
 
 ## rcon-manager.yml
@@ -57,4 +59,33 @@ port: 25570
 password: "password"
 # The response is colored or not
 colored: true
+```
+
+## events.yml
+```yml
+# Events settings
+# Placeholders: {player}, {server}, {fromServer}
+# [console] - run console command
+# [delay] (seconds) - delay seconds command
+events:
+  on_join_commands:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} join the game"
+      - "[delay] 10"
+      - "server vanilla"
+  on_leave_commands:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} left the game"
+  on_server_switch:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} connected to server {server} from server {fromServer}"
+  on_server_kick:
+    enabled: true
+    commands:
+      - "[console] alert &6Player {player} kick the server {server}"
+      - "[delay] 60"
+      - "server {server}"
 ```
