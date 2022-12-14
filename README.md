@@ -1,14 +1,5 @@
 # VelocityUtil
 
-
-### The module allows you to run php/bash scripts, in order to run php scripts on the hosting, PHP must be installed.
-
-| Command | Description | Permission |
-| --- | --- | --- |
-| php [script/reload] [args] | run php script (requires php installed on hosting) | velocityutil.php.[*]/[reload]/[script_name] |
-| bash [script/reload] [args] | run bash script | velocityutil.bash.[*]/[reload]/[script_name] |
-
-
 ### You can turn off or turn on all the plug-in modules, so you can turn off functions you don't use and the plug-in won't load them when the server starts.
 
 | Command | Description | Permission |
@@ -33,6 +24,13 @@ modules:
   # Events manager. Allows you to use an event handler
   events-manager: true
 ```
+
+### The module allows you to run php/bash scripts, in order to run php scripts on the hosting, PHP must be installed.
+
+| Command | Description | Permission |
+| --- | --- | --- |
+| php [script/reload] [args] | run php script (requires php installed on hosting) | velocityutil.php.[*]/[reload]/[script_name] |
+| bash [script/reload] [args] | run bash script | velocityutil.bash.[*]/[reload]/[script_name] |
 
 ### The module adds RCON for the Velocity proxy.
 
